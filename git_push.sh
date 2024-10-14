@@ -1,4 +1,4 @@
 git add .
-git commit -m 'MaxCover Completed'
+git commit -m 'MaxCut Completed'
 git push origin main
 

@@ -14,13 +14,15 @@ from numba import njit
 
 def calculate_obj(graph: nx.Graph, solution):
 
-    covered_elements=set()
+    cut = 0
+
+    solution = set(solution)
+
     for node in solution:
-        covered_elements.add(node)
-        for neighbour in graph.neighbors(node):
-            covered_elements.add(neighbour)
-    
-    return len(covered_elements)
+        for neighbor in graph.neighbors(node):
+            if neighbor not in solution:
+                cut+=1
+    return cut
 
 def generate_node_weights(graph,cost_model,seed = None):
 

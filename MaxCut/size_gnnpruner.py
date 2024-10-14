@@ -140,7 +140,7 @@ if __name__ == "__main__":
     print('Queries:',round(queries_pruned/queries_unpruned,4)*100)
 
 
-    save_folder = f'MaxCover/data/{dataset}'
+    save_folder = f'MaxCut/data/{dataset}'
     os.makedirs(save_folder,exist_ok=True)
     save_file_path = os.path.join(save_folder,'GNNpruner')
 
