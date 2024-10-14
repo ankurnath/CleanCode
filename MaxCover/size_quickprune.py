@@ -49,7 +49,7 @@ def quickprune(dataset,max_budget,min_budget,delta,eps,eta):
     
     current_folder = os.getcwd()
     load_graph_file_path = os.path.join(current_folder,f'data/snap_dataset/{dataset}.txt')
-    # load_graph_file_path=f'../../data/snap_dataset/{dataset}.txt'
+    
     graph = load_graph(load_graph_file_path)
 
     pruned_universe = []
