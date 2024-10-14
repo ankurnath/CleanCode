@@ -122,7 +122,7 @@ def SS(dataset,r,c,budget):
     
     
 
-    save_folder = os.path.join(current_folder,'MaxCover',f'data/{dataset}')
+    save_folder = os.path.join(current_folder,'MaxCut',f'data/{dataset}')
     os.makedirs(save_folder,exist_ok=True)
     save_file_path = os.path.join(save_folder,'SS')
 

@@ -63,7 +63,7 @@ def quickprune_multi(dataset, cost_model , max_budget, min_budget,delta ,eta,eps
     graph = load_graph(load_graph_file_path)
     node_weights = generate_node_weights(graph=graph,cost_model=cost_model)
 
-    save_folder = os.path.join(current_folder,'MaxCut',f'{dataset}/knapsack_multi')
+    save_folder = os.path.join(current_folder,'MaxCut',f'data/{dataset}/knapsack_multi')
     os.makedirs(save_folder,exist_ok=True)
     save_file_path = os.path.join(save_folder,f'quickprune_{cost_model}')
 
