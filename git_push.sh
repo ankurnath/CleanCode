@@ -1,4 +1,4 @@
 git add .
-git commit -m 'updated everything'
+git commit -m 'MaxCover Completed'
 git push origin main
 
