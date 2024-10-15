@@ -278,7 +278,7 @@ def quickprune_multi(dataset,cost_model,max_budget, min_budget,delta ,eps,eta,nu
     # print(df)
 
     # save_folder = f'data/{dataset}/knapsack_multi' 
-    save_folder = os.path.join(current_folder,'IM',f'data/{dataset}')
+    save_folder = os.path.join(current_folder,'IM',f'data/knapsack_multi/{dataset}')
     os.makedirs(save_folder,exist_ok=True)
     save_file_path = os.path.join(save_folder,f'quickprune_{cost_model}')
     save_to_pickle(df,save_file_path)

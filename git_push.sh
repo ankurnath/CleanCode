@@ -1,4 +1,4 @@
 git add .
-git commit -m 'MaxCut Completed'
+git commit -m 'IM Completed'
 git push origin main
 
