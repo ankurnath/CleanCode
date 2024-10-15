@@ -298,8 +298,8 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--dataset", type=str, default='Facebook', help="Name of the dataset to be used (default: 'Facebook')")
     parser.add_argument("--cost_model",type=str,default='aistats',help='model of node weights')
-    parser.add_argument('--max_budget', type = int ,default=100, help = 'Maximum Budget')
-    parser.add_argument('--min_budget', type = int ,default=10, help = 'Minimum Budget')
+    parser.add_argument('--max_budget', type = float ,default=100, help = 'Maximum Budget')
+    parser.add_argument('--min_budget', type = float ,default=10, help = 'Minimum Budget')
 
     parser.add_argument("--delta", type=float, default=0.5, help="Delta")
     parser.add_argument("--eps", type=float, default=0.1, help="Eps")

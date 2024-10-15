@@ -9,7 +9,7 @@ import pandas as pd
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument( "--dataset", type=str, default='Facebook', help="Name of the dataset to be used (default: 'Facebook')" )
-    parser.add_argument( "--budget", type= int , default= 100, help="Budget" )
+    parser.add_argument( "--budget", type= float , default= 100, help="Budget" )
     parser.add_argument("--cost_model",type= str, default= 'aistats', help = 'model of node weights')
     args = parser.parse_args()
 
