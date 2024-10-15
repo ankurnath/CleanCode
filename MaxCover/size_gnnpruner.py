@@ -70,6 +70,8 @@ if __name__ == "__main__":
 
     model.train()
 
+    best_loss = float('inf')  # Initialize the best training loss to infinity
+
     for epoch in tqdm(range(1,1000)):
 
         out = model(data.x, data.edge_index)  # Perform a single forward pass.
@@ -84,13 +86,23 @@ if __name__ == "__main__":
         loss.backward()  # Derive gradients.
         optimizer.step()  # Update parameters based on gradients.
         optimizer.zero_grad()  # Clear gradients.
-        
 
+        # Save the best model if training loss improves
+        if loss < best_loss:
+            best_loss = loss
+            torch.save(model.state_dict(), 'best_model.pth')  # Save the model's state dictionary
+            # print(f"Epoch {epoch}: Training loss improved to {best_loss:.4f}. Model saved.")
+        
+    model.load_state_dict(torch.load('best_model.pth'))
 
     model.eval()
 
+
+    
     current_folder = os.getcwd()
     load_graph_file_path = os.path.join(current_folder,f'data/snap_dataset/{dataset}.txt')
+
+    test_graph = load_graph(load_graph_file_path)
 
     test_graph = load_graph(load_graph_file_path)
     test_data = from_networkx(test_graph)

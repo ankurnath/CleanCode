@@ -1,8 +1,10 @@
+import os
 import torch
 from utils import *
 from torch_geometric.utils.convert import  from_networkx
-from greedy import greedy
-
+from imm import *
+from greedy import *
+from collections import defaultdict
 
 import pandas as pd
 
@@ -21,26 +23,36 @@ if __name__ == "__main__":
 
 
     train_graph=load_from_pickle(load_graph_file_path)
+
+
+
     data= from_networkx(train_graph)
 
 
-    _,_,solution=greedy(graph=train_graph,budget=budget,ground_set=None)
+    
 
+    solution  = imm (graph=train_graph,seed_size=budget)
 
+    
     mapping = dict(zip(train_graph.nodes(), range(train_graph.number_of_nodes())))
     train_mask = torch.tensor([mapping[node] for node in solution], dtype=torch.long)
     y=torch.zeros(train_graph.number_of_nodes(),dtype=torch.long)
 
-
+    
     for node in solution:
+        
         y[mapping[node]]=1
 
 
+    # data.train_mask=train_mask
 
+    # print('y:',torch.sum(y))
     data.y=y
-    num_features=1
+    num_features= 1
 
     x=[train_graph.degree(node) for node in train_graph.nodes()]
+    # data.x= torch.randn(size=(graph.num,num_features))
+    # data.x = torch.tensor(x,dtype=torch.float).reshape(-1,1)
     data.x = torch.rand(size=(train_graph.number_of_nodes(),1))
 
 
@@ -60,15 +72,21 @@ if __name__ == "__main__":
             x = self.conv2(x, edge_index)
             return x
 
+        # def forward(self, x, edge_index,edge_weight):
+        #     x = self.conv1(x, edge_index,edge_weight)
+        #     x = x.relu()
+        #     # x = F.dropout(x, p=0.5, training=self.training)
+        #     x = self.conv2(x, edge_index,edge_weight)
+        #     return x
+
     model = GCN(hidden_channels=16)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model.to(device=device)
     data.to(device=device)
 
+    model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
     criterion = torch.nn.CrossEntropyLoss()
-
-    model.train()
 
     best_loss = float('inf')  # Initialize the best training loss to infinity
 
@@ -103,8 +121,6 @@ if __name__ == "__main__":
     load_graph_file_path = os.path.join(current_folder,f'data/snap_dataset/{dataset}.txt')
 
     test_graph = load_graph(load_graph_file_path)
-
-    test_graph = load_graph(load_graph_file_path)
     test_data = from_networkx(test_graph)
 
     test_data.x =torch.rand(size=(test_graph.number_of_nodes(),1))
@@ -122,41 +138,52 @@ if __name__ == "__main__":
 
     print('time elapsed to pruned',time_to_prune)
 
-    
+
+    subgraph = make_subgraph(test_graph,pruned_universe)
 
     ##################################################################
 
     Pg=len(pruned_universe)/test_graph.number_of_nodes()
     start = time.time()
-    objective_unpruned,queries_unpruned,solution_unpruned= greedy(test_graph,budget)
+    # solution_unpruned, _ = imm(graph=graph,seed_size=budget,seed=seed)
+    solution_unpruned = imm(graph=test_graph,seed_size=budget,seed=0)
+    queries_unpruned  = budget/2 * (2*test_graph.number_of_nodes() - budget +1) 
     end = time.time()
+
+
+    # sprint([graph.degree(node) for node in solution_unpruned])
+    
     time_unpruned = round(end-start,4)
     print('Elapsed time (unpruned):',round(time_unpruned,4))
 
     start = time.time()
-    objective_pruned,queries_pruned,solution_pruned = greedy(graph=test_graph,budget=budget,ground_set=pruned_universe)
+    solution_pruned = imm(graph=subgraph,seed_size=budget, seed=0)
+    queries_pruned  = budget/2 * (2*len(pruned_universe) - budget +1) 
+    # sprint([graph.degree(node) for node in solution_pruned])
     end = time.time()
     time_pruned = round(end-start,4)
     print('Elapsed time (pruned):',time_pruned)
-    
-    
+
+    objective_pruned = calculate_spread(graph=test_graph,solution=solution_pruned)
+    objective_unpruned = calculate_spread(graph=test_graph,solution=solution_unpruned)
+
+    sprint(objective_pruned)
+    sprint(objective_unpruned)
     ratio = objective_pruned/objective_unpruned
 
 
-    print('Performance of GNNpruner')
+    print('Performance of GNNpruning')
     print('Size Constraint,k:',budget)
     print('Size of Ground Set,|U|:',test_graph.number_of_nodes())
     print('Size of Pruned Ground Set, |Upruned|:', len(pruned_universe))
     print('Pg(%):', round(Pg,4)*100)
     print('Ratio:',round(ratio,4)*100)
-    print('Queries:',round(queries_pruned/queries_unpruned,4)*100)
 
 
-    save_folder = f'MaxCut/data/{dataset}'
+    # save_folder = f'data/{dataset}'
+    save_folder = os.path.join(current_folder,'IM',f'data/{dataset}')
     os.makedirs(save_folder,exist_ok=True)
     save_file_path = os.path.join(save_folder,'GNNpruner')
-
-    
 
     df ={     'Dataset':dataset,
               'Budget':budget,
@@ -172,19 +199,16 @@ if __name__ == "__main__":
               'Ratio(%)':round(ratio,4)*100, 
               'Queries(%)': round(queries_pruned/queries_unpruned,4)*100,
               'TimeRatio': time_pruned/time_unpruned,
-              'TimeToPrune':time_to_prune,
-              
-
+              'TimeToPrune':time_to_prune
 
               }
 
    
     df = pd.DataFrame(df,index=[0])
     save_to_pickle(df,save_file_path)
-   
+    print(df)
 
+    
 
-
-
-
+    
 
