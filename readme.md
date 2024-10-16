@@ -48,3 +48,49 @@ For knapsack-constraint with GNNpruner
 
     >>> python MaxCover/knapsack_gnnpruner.py --dataset Facebook
 
+## MaxCut
+
+Below are instructions for using QuickPrune, GNNPruner, and SS methods with the MaxCut problem. 
+For size-constraint with quickprune
+
+    >>> python MaxCut/size_quickprune.py --dataset Facebook 
+
+For size-constraint with GNNpruner
+
+    >>> python MaxCut/size_gnnpruner.py --dataset Facebook
+    
+For size-constraint with SS
+
+    >>> python MaxCut/SS.py --dataset Facebook
+
+For knapsack-constraint with quickprune
+
+    >>> python MaxCut/knapsack_quickprune.py --dataset Facebook 
+
+For knapsack-constraint with GNNpruner
+
+    >>> python MaxCut/knapsack_gnnpruner.py --dataset Facebook
+
+
+## Influence Maximization
+
+Below are instructions for using QuickPrune, GNNPruner, and SS methods with the IM problem. 
+For size-constraint with quickprune
+
+    >>> python IM/size_quickprune.py --dataset Facebook 
+
+For size-constraint with GNNpruner
+
+    >>> python IM/size_gnnpruner.py --dataset Facebook
+    
+For size-constraint with SS
+
+    >>> python IM/SS.py --dataset Facebook
+
+For knapsack-constraint with quickprune
+
+    >>> python IM/knapsack_quickprune.py --dataset Facebook 
+
+For knapsack-constraint with GNNpruner
+
+    >>> python IM/knapsack_gnnpruner.py --dataset Facebook
