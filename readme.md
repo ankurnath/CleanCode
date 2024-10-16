@@ -19,10 +19,15 @@ To split the dataset into training and test sets, specify the dataset and the de
 
     >>> python data_processing/train_test_split.py --dataset Facebook --ratio 0.3 
 
+
+## Remark 
+
+For the implementation details of COMBHelper, LeNSE, and GCOMB-P, please refer to the original repository.
+
+
 ## MaxCover
 
-The MaxCover problem can be solved under size or knapsack constraints using different algorithms. Below are instructions for using QuickPrune, GNNPruner, and SS methods with the MaxCover problem.
-
+The MaxCover problem can be solved under size or knapsack constraints using different algorithms. Below are instructions for using QuickPrune, GNNPruner, and SS methods with the MaxCover problem. 
 For size-constraint with quickprune
 
     >>> python MaxCover/size_quickprune.py --dataset Facebook 
