@@ -20,17 +20,22 @@ For train and test split
 ## MaxCover
 
 For size-constraint with quickprune
+
     >>> python MaxCover/size_quickprune.py --dataset Facebook 
 
 For size-constraint with GNNpruner
+
     >>> python MaxCover/size_gnnpruner.py --dataset Facebook
     
 For size-constraint with SS
+
     >>> python MaxCover/SS.py --dataset Facebook
 
 For knapsack-constraint with quickprune
+
     >>> python MaxCover/knapsack_quickprune.py --dataset Facebook 
 
 For knapsack-constraint with GNNpruner
+
     >>> python MaxCover/knapsack_gnnpruner.py --dataset Facebook
 
