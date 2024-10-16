@@ -94,3 +94,15 @@ For knapsack-constraint with quickprune
 For knapsack-constraint with GNNpruner
 
     >>> python IM/knapsack_gnnpruner.py --dataset Facebook
+
+
+# Retrieval system
+
+Image retrieval 
+
+    >>> python retrieval_system/image.py --dataset beans
+
+
+Video retrieval
+
+    >>> python retrieval_system/video.py --dataset ucf101
