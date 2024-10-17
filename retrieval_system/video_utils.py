@@ -106,7 +106,7 @@ def graph_cut(candidate_similarity, query_similarity,costs, budget, ground_set):
 
         if best_candidate == -1:
             # No valid candidate was found, stop the loop
-            print("No valid candidate found, breaking the loop.")
+            # print("No valid candidate found, breaking the loop.")
             break
         
         ground_set[best_candidate] = 0
@@ -145,7 +145,7 @@ def QS_single(candidate_similarity,
               budget=5,
               eps=0.1):
     N = len(candidate_similarity)
-    print('Size of unpruned ground set', N)
+    # print('Size of unpruned ground set', N)
 
     # Current objective value
     curr_obj = 0
@@ -221,7 +221,7 @@ def QS_single(candidate_similarity,
 
 
 
-    print('Size of pruned ground set(QS)', ground_set.sum())
+    # print('Size of pruned ground set(QS)', ground_set.sum())
     return ground_set
 
 

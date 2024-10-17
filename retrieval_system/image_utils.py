@@ -117,7 +117,7 @@ def SS(candidate_similarity,query_similarity,r=8,c=8):
     for element in pruned_universe:
         ground_set[element] = 1
 
-    print('Size of pruned ground set(SS)', ground_set.sum())
+    # print('Size of pruned ground set(SS)', ground_set.sum())
 
     return ground_set
 
@@ -150,7 +150,7 @@ def QS(candidate_similarity, query_similarity,min_budget=5,max_budget=20, delta=
 @njit(fastmath=True, parallel=True)
 def QS_single(candidate_similarity, query_similarity, delta=0.05, budget=5,eps=0.1):
     N = len(candidate_similarity)
-    print('Size of unpruned ground set', N)
+    # print('Size of unpruned ground set', N)
 
     # Current objective value
     curr_obj = 0
@@ -223,7 +223,7 @@ def QS_single(candidate_similarity, query_similarity, delta=0.05, budget=5,eps=0
 
 
 
-    print('Size of pruned ground set(QS)', ground_set.sum())
+    # print('Size of pruned ground set(QS)', ground_set.sum())
     return ground_set
 
 
@@ -305,7 +305,7 @@ def graph_cut(candidate_similarity, query_similarity, budget, ground_set):
 
         if best_candidate == -1:
             # No valid candidate was found, stop the loop
-            print("No valid candidate found, breaking the loop.")
+            # print("No valid candidate found, breaking the loop.")
             break
 
         # Select the candidate with the highest gain
