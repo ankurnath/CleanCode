@@ -8,7 +8,7 @@ def train_test_split (dataset:str,ratio:float,edge_level_split:bool,seed:int):
     log_file = f"{dataset}_train_test_split.log"
 
     
-    logging.basicConfig(level=logging.INFO, filename=os.path.join('../../data',log_file),
+    logging.basicConfig(level=logging.INFO, filename=os.path.join(log_file),
                         filemode='w', format='%(asctime)s - %(levelname)s - %(message)s')
 
 
